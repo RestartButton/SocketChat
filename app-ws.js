@@ -15,6 +15,13 @@ module.exports = (server) => {
             io.emit('chat message', outbound);
         });
 
+        ws.on('read', data => {
+            const message = JSON.parse(data);
+            console.log(`message from ${message.sender} was read by ${ws.id}`);
+
+            io.emit('read', data);
+        });
+
         ws.on('disconnect', () => {
 
             console.log(`onClose: client disconnected!`);

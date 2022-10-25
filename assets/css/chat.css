@@ -1,5 +1,8 @@
-body {
+html, body{
     height: 100%;
+}
+body {
+    margin: 0;
     display: flex;
     flex-direction: column;
 }
@@ -9,6 +12,9 @@ body {
     flex-direction: row;
     flex-shrink: 0;
     background-color: azure;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
 }
 
 .eu{
@@ -21,9 +27,26 @@ body {
     background-color: white;
 }
 
+.balao_mensagem{
+    margin: 0.5%;
+    padding: 1%;
+    max-width: 70%;
+    overflow-wrap: break-word;
+    display:flex;
+    flex-direction: column;
+}
+.balao_mensagem span{
+    align-self: flex-end;
+}
+
 #janela_conversa{
     display: flex;
     flex-direction: column;
     flex: 1 0 auto;
     background-color: gray;
+    padding-bottom: 2%;
+}
+
+#campo_mensagem{
+    width: -webkit-fill-available;
 }
