@@ -97,6 +97,7 @@ button {
 #botao_enviar{
     padding: 0.7%;
     margin: 0.7%;
+    margin-right: 1.5%;
 }
 
 #campo_mensagem{

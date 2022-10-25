@@ -3,24 +3,10 @@ var nLidas = [];
 
 $('body').ready(function() {
     $('#botao_enviar').click(function () {
-        if($('#apelido_usuario').val() != '' && $('#codigo_sala').val() != '') {
-            if($('#campo_mensagem').val().trim() != ''){
-
-                let metadata = JSON.stringify({
-                    nick: $('#apelido_usuario').val().trim(),
-                    msg: $('#campo_mensagem').val().trim(), 
-                    time: new Date(),
-                    room: $('#codigo_sala').val().trim(),
-                });
-
-                ws.emit('chat message', metadata);
-                $('#campo_mensagem').val('');
-            }
-        } else {
-            alert('Ambos os campos Apelido e Código precisam ser preenchidos');
-        }
+        enviar();
     });
 
+    
     $('#codigo_sala').focusout(function() {
         $('#codigo_sala').val($('#codigo_sala').val().trim());
         if($('#codigo_sala').val().trim() != '') {
@@ -28,7 +14,13 @@ $('body').ready(function() {
             $('#janela_conversa').empty();
         }
     });
-
+    
+    document.getElementById('campo_mensagem').addEventListener("keydown", function(event) {
+        if(event.code === "Enter") {
+            enviar()
+        }
+    });
+    
     document.addEventListener("visibilitychange", () => {
         if(document.visibilityState === 'visible') {
             while(nLidas.length > 0){
@@ -63,4 +55,23 @@ ws.on('read', (data) => {
             }
         });
     }
-})
+});
+
+function enviar() {
+    if($('#apelido_usuario').val() != '' && $('#codigo_sala').val() != '') {
+        if($('#campo_mensagem').val().trim() != ''){
+
+            let metadata = JSON.stringify({
+                nick: $('#apelido_usuario').val().trim(),
+                msg: $('#campo_mensagem').val().trim(), 
+                time: new Date(),
+                room: $('#codigo_sala').val().trim(),
+            });
+
+            ws.emit('chat message', metadata);
+            $('#campo_mensagem').val('');
+        }
+    } else {
+        alert('Ambos os campos Apelido e Código precisam ser preenchidos');
+    }
+}
