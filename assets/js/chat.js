@@ -1,4 +1,5 @@
 const ws = io();
+var nLidas = [];
 
 $('body').ready(function() {
     $('#botao_enviar').click(function () {
@@ -13,6 +14,15 @@ $('body').ready(function() {
             $('#campo_mensagem').val('');
         }
     });
+
+    document.addEventListener("visibilitychange", () => {
+        if(document.visibilityState === 'visible') {
+            while(nLidas.length > 0){
+                let data = nLidas.pop();
+                ws.emit('read',data);
+            }
+        }
+    });
 });
 
 ws.on('chat message', (data) => { // data = { sender: ws.id, msg: metadata.msg, time: metadata.time };
@@ -21,7 +31,11 @@ ws.on('chat message', (data) => { // data = { sender: ws.id, msg: metadata.msg, 
     let mensagem = $(`<div class="balao_mensagem ${ metadata.sender == ws.id ? "eu" : "outro" }">${metadata.msg}<span>${enviado.getHours()}:${enviado.getMinutes()}:${enviado.getMilliseconds()}</span></div>`);
     $('#janela_conversa').append(mensagem);
     if(metadata.sender != ws.id){
-        ws.emit('read',data);
+        if(!document.hidden) {
+            ws.emit('read',data);
+        } else {
+            nLidas.push(data);
+        }
     }
 });
 
