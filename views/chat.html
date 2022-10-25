@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -11,11 +11,16 @@
     <script src="/js/chat.js"></script>
 </head>
 <body>
+    <div class="barra_sup">
+        <input id="apelido_usuario" placeholder="Apelido">
+        <input id="codigo_sala" placeholder="Código">
+    </div>
+
     <div id="janela_conversa"></div>
 
-    <div class="barra">
-        <input id="campo_mensagem">
-        <button id="botao_enviar">Enviar</button>
+    <div class="barra_inf">
+        <input id="campo_mensagem" placeholder="Mensagem...">
+        <button type="button" id="botao_enviar">Enviar</button>
     </div>
 </body>
 </html>
