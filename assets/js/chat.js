@@ -1,13 +1,22 @@
 const ws = io();
 
-$('#botao_enviar')[0].onclick = function () {
-    if($('#campo_mensagem').val().trim() != ''){
-        ws.emit('chat message', $('#campo_mensagem').val().trim());
-        $('#campo_mensagem').val('');
-    }
-};
+$('body').ready(function() {
+    $('#botao_enviar').click(function () {
+        if($('#campo_mensagem').val().trim() != ''){
 
-ws.on('chat message', (data) => {
-    let mensagem = $(`<div>${data}<div>`);
+            let metadata = JSON.stringify({
+                msg: $('#campo_mensagem').val().trim(), 
+                time: new Date(),
+            })
+
+            ws.emit('chat message', metadata);
+            $('#campo_mensagem').val('');
+        }
+    });
+});
+
+ws.on('chat message', (data) => { // data = { sender: ws.id, data: metadata.msg, time: metadata.time };
+    let metadata = JSON.parse(data);
+    let mensagem = $(`<div class="${ metadata.sender == ws.id ? "eu" : "outro" }">${metadata.msg}<div>`);
     $('#janela_conversa').append(mensagem);
 });

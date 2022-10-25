@@ -12,14 +12,18 @@ body {
 }
 
 .eu{
+    align-self: flex-end;
     background-color: green;
 }
 
 .outro{
+    align-self: flex-start;
     background-color: white;
 }
 
 #janela_conversa{
+    display: flex;
+    flex-direction: column;
     flex: 1 0 auto;
     background-color: gray;
 }
