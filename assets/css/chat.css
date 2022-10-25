@@ -1,0 +1,25 @@
+body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.barra{
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    background-color: azure;
+}
+
+.eu{
+    background-color: green;
+}
+
+.outro{
+    background-color: white;
+}
+
+#janela_conversa{
+    flex: 1 0 auto;
+    background-color: gray;
+}
